@@ -2,7 +2,9 @@ Tie
 X
 O
 O
+X
 Tie
+O
 X
 O
 T
