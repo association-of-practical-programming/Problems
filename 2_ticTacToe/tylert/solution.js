@@ -1,3 +1,7 @@
+// Run: `node solution.js`
+// Redirect output to file: `node solution.js > output.file`
+// Check if correct: `diff output.file ../output.txt`
+
 const fs = require("fs");
 
 const lines = fs.readFileSync("../input.txt", "utf8").split("\n");
@@ -15,7 +19,6 @@ function whoWon(board) {
     for (let j = 0; j < board.length; j++) {
       // console.log(board[i][j])
       if (isWinningSquare(board, i, j)) {
-        console.log(i, j)
         console.log(board[i][j]);
         return false;
       }
@@ -70,11 +73,9 @@ function isValidSpot(board, x, y) {
   return true;
 }
 
-// for (const line of lines) {
-  const line = lines[4];
+for (const line of lines) {
   const length = line.charAt(0);
   const lineData = line.substring(2, line.length);
   const boardData = chunkString(lineData, length).map(line => line.split(""));
-  console.log(line);
   whoWon(boardData);
-// }
+}
