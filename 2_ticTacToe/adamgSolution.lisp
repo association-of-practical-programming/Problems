@@ -1,3 +1,7 @@
+; Note: This solution doesn't work with the input file given in the problem.
+; In order to make it work, you need to remove the board dimension at the start of each line.
+; Also, it includes '_' in its list of winners, which isn't technically true, since that is an empty space.
+
 (defun get-directions (size position)
   (let ((res nil) (res2 nil))
     (when (>= (floor position size) 2) (push (- size) res))
