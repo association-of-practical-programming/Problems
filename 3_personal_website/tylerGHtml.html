@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .wrapper {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                grid-template-rows: repeat(12, 1fr);
+            }
+
+            .heading {
+                display: flex;
+                grid-column: span 12;
+                border: 5px solid black;
+                background-color: white;
+            }
+
+            .name {
+                margin: auto;
+                font-size: 5vw;
+                text-shadow: 0.5px 0.5px black;
+            }
+
+            .side-bar {
+                display: flex;
+                flex-direction: column;
+                grid-column: span 2;
+                grid-row: span 2;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                border: 5px solid black;
+                background-color: white;
+            }
+
+            .side {
+                grid-column: span 2;
+                grid-row: span 11;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                display: grid;
+            }
+
+            .filler {
+                margin: auto;
+                text-shadow: 0.5px 0.5px black;
+            }
+
+            .center {
+                grid-column: span 8;
+                grid-row: span 11;
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+                border: 5px solid black;
+                background-color: white;
+            }
+
+            .center-box {
+                height: 75px;
+                width: 100px;
+                background-color: red;
+            }
+
+            .wallCounter {
+                grid-column: span 4;
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+                text-align: center;
+                border: 5px solid black;
+                background-color: white;
+            }
+
+            .blank {
+                grid-column: span 2;
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .colorChanged {
+                grid-column: span 4;
+                margin-top: 10px;
+                margin-left: 10px;
+                margin-right: 10px;
+                text-align: center;
+                border: 5px solid black;
+                background-color: white;
+            }
+        </style>
+    </head>
+    <body style="background-color: gray">
+        <div class="wrapper">
+            <div class="heading">
+                <div class="name"><b>=== Tyler Gerth ===</b></div>
+            </div>
+            <div class="side">
+                <div class="side-bar" id="red" style="background-color: red" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+                <div class="side-bar" id="orange" style="background-color: orange" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+                <div class="side-bar" id="yellow" style="background-color: yellow" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+                <div class="side-bar" id="green" style="background-color: green" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+                <div class="side-bar" id="blue" style="background-color: blue" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+                <div class="side-bar" id="purple" style="background-color: purple" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+            </div>
+            <div class="center" id="container">
+                <div class="center-box" id="center-box"></div>
+            </div>
+            <div class="side">
+                <div class="side-bar" id="red" style="background-color: red" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+                <div class="side-bar" id="orange" style="background-color: orange" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+                <div class="side-bar" id="yellow" style="background-color: yellow" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+                <div class="side-bar" id="green" style="background-color: green" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+                <div class="side-bar" id="blue" style="background-color: blue" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+                <div class="side-bar" id="purple" style="background-color: purple" onclick="changeColor(id)">
+                    <div class="filler"></div>                        
+                </div>
+            </div>
+            <div class="blank"></div>
+            <div class="wallCounter" id="wallCounter">Wall hit 0 times</div>
+            <div class="colorChanged" id="colorChanged">Color changed 0 times</div>
+            <div class="blank"></div>
+        </div>
+        <script>
+            let box = document.getElementById("center-box");
+            let container = document.getElementById("container").getBoundingClientRect();
+            let wallsHit = document.getElementById("wallCounter");
+            let colorChanged = document.getElementById("colorChanged");
+
+            let colorChangedCount = 0;
+            let wallsHitCount = 0;
+
+            let containerTop = container.top;
+            let containerBottom = container.bottom;
+            let containerLeft = container.left;
+            let containerRight = container.right;
+            console.log(containerRight);
+
+            box.style.position = "absolute";
+            box.style.left = 0 + "px";
+            box.style.top = 0 + "px";
+
+            xPos = containerLeft;
+            moveRight = true;
+            yPos = containerTop;
+            moveDown = true;
+
+            setInterval(moveBox, 10);
+
+            function moveBox() {
+                moveRight ? xPos++ : xPos--;
+                moveDown ? yPos++ : yPos--;
+
+                box.style.left = xPos + "px";
+                box.style.top = yPos + "px";
+
+                checkBoundaries()
+            }
+
+            function checkBoundaries() {
+                if (xPos <= container.left || (xPos + 100) >= container.right) {
+                    moveRight = !moveRight;
+                    wallsHitCount++;
+                    wallsHit.innerHTML = `Walls hit ${wallsHitCount} times`;
+                }
+
+                if (yPos <= container.top || (yPos + 75) >= container.bottom) {
+                    moveDown = !moveDown;
+                    wallsHitCount++;
+                    wallsHit.innerHTML = `Walls hit ${wallsHitCount} times`;
+                }   
+            }
+
+            function changeColor(color) {
+                box.style.backgroundColor = color;
+                colorChangedCount++;
+                colorChanged.innerHTML = `Color changed ${colorChangedCount} times`;
+            }
+        </script>
+    </body>
+</html>
